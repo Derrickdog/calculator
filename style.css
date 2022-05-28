@@ -22,14 +22,12 @@ body{
     padding: 10px 15px 0 15px;
     border: 10px solid black;
 }
-
 #grid{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border: 10px solid black;
     border-radius: 0 0 10px 10px;
 }
-
 #clear, #btn0{
     grid-column-start: 1;
     grid-column-end: 3;
@@ -41,15 +39,22 @@ body{
     background-color: #eee;
     font-size: 18px;
 }
-
 .btn:hover{
     background-color: #ccc;
+}
+.btn:active{
+    background-color: #eee;
 }
 
 .op, #equals{
     background-color: orange;
 }
-
 .op:hover, #equals:hover{
-    background-color: darkorange;
+    background-color: tomato;
+}
+#equals:active{
+    background-color: orange;
+}
+.op:focus{
+    background-color: tomato;
 }

@@ -38,10 +38,12 @@ function setOperator(e){
 }
 
 function calculate(e){
-    if(operator === '') return;
-    num2 = displayBox.textContent;
-    displayBox.textContent = operate(num1, num2, operator);
-    operator = '';
+    if(operator != ''){ 
+        num2 = displayBox.textContent;
+        displayBox.textContent = operate(num1, num2, operator);
+        operator = '';
+    }
+    else return;
 }
 
 function add(a, b){

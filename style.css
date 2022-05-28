@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+header{
+    width: 100%;
+    padding: 20px;
+    background-color: yellow;
+}
+
+#grid{
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.btn{
+    padding: 30px;
+
+}

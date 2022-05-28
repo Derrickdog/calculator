@@ -2,26 +2,35 @@
     margin: 0;
     padding: 0;
 }
-
 body{
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    font-family: Arial;
 }
-
 header{
     width: 100%;
     padding: 20px;
     background-color: yellow;
 }
 
+#display{
+    width: 330px;
+    height: 70px;
+    text-align: right;
+    font-size: 55px;
+    background-color: lightgray;
+    border-radius: 10px 10px 0 0;
+    margin-top: 40px;
+    padding: 10px 15px 0 15px;
+}
+
+
 #grid{
-    padding: 40px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
-
 .btn{
     padding: 30px;
 }

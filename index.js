@@ -18,6 +18,9 @@ document.getElementById('clear').addEventListener('click', clear);
 document.getElementById('delete').addEventListener('click', del);
 document.getElementById('decimal').addEventListener('click', addDecimal);
 
+// Keyboard
+window.addEventListener('keydown', keyboardInput);
+
 // Display
 function displayNumber(e){
     if(needReset){
@@ -36,7 +39,7 @@ function setOperator(e){
     needReset = true;
 }
 
-function calculate(e){
+function calculate(){
     if(operator == '' || needReset){
         return;
     }
@@ -109,4 +112,31 @@ function del(){
     if(currentDisplay.textContent != ''){
         currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
     }
+}
+
+// Keyboard support
+function keyboardInput(e){
+    if(e.key >= 0 && e.key <= 9){
+        displayKeyboard(e);
+    }
+    else if(e.key === '.'){
+        addDecimal();
+    }
+    else if(e.key === '=' || e.key === 'Enter'){
+        calculate();
+    }
+    else if(e.key === 'Backspace'){
+        del();
+    }
+    else if(e.key === 'Escape'){
+        clear();
+    }
+}
+
+function displayKeyboard(e){
+    if(needReset){
+        currentDisplay.textContent = '';
+        needReset = false;
+    }
+    currentDisplay.textContent += e.key;
 }

@@ -23,52 +23,74 @@
 // const negBtn = document.getElementById('negative');
 // const pctBtn = document.getElementById('percentage');
 
-let displayBox = "";
-let count = 0;
-let num1 = "";
-let num2 = "";
-let operator;
+// document.getElementById('add').addEventListener('click', display);
+// document.getElementById('subtract').addEventListener('click', display);
+// document.getElementById('multiply').addEventListener('click', display);
+// document.getElementById('divide').addEventListener('click', display);
 
-for(let i = 0; i < 10; i++){
-    document.getElementById('btn'+i).addEventListener('click', display);
-    document.getElementById('btn'+i).addEventListener('click', op);
-}
+// document.getElementById('equals').addEventListener('click', eqls);
 
-document.getElementById('add').addEventListener('click', display);
-document.getElementById('subtract').addEventListener('click', display);
-document.getElementById('multiply').addEventListener('click', display);
-document.getElementById('divide').addEventListener('click', display);
 
+
+// function op(e){
+//     if(count === 0){
+//         num1 += e.target.textContent;
+//     }
+// }
+
+// function eqls(){
+//     document.getElementById('display').textContent = operate(num1, num2, operator);
+// }
+
+
+
+
+let num1 = '';
+let num2 = '';
+let operator = '';
+let displayBox = '';
+
+//const displayBox = document.getElementById('display');
+
+// Number buttons
+const numButtons = document.querySelectorAll('.num');
+numButtons.forEach((button) => button.addEventListener('click', displayNumber));
+
+// Operator buttons
+const opButtons = document.querySelectorAll('.op');
+opButtons.forEach((button) => button.addEventListener('click', setOperator));
+
+// Equals button
 document.getElementById('equals').addEventListener('click', eqls);
 
+// Clear buttons
 document.getElementById('clear').addEventListener('click', clear);
 document.getElementById('delete').addEventListener('click', del);
 
-function display(e){
+function displayNumber(e){
     displayBox += e.target.textContent;
     document.getElementById('display').textContent = displayBox;
 }
 
-function op(e){
-    if(count === 0){
-        num1 += e.target.textContent;
+function setOperator(e){
+    if(operator === ''){
+        num1 = displayBox;
+        operator = e.target.textContent;
+        resetDisplay(); //last operation screen
+    }
+    else{
+        eqls(e);
     }
 }
 
-function eqls(){
-    document.getElementById('display').textContent = operate(num1, num2, operator);
-}
-
-function clear(){
-    displayBox = "";
+function resetDisplay(){
+    displayBox = '';
     document.getElementById('display').textContent = displayBox;
 }
 
-function del(){
-    if(displayBox != ""){
-        displayBox = displayBox.slice(0, -1);
-        document.getElementById('display').textContent = displayBox;
-    }
+function eqls(e){
+    num2 = displayBox;
+    document.getElementById('display').textContent = operate(num1, num2, operator);
 }
 
 function add(a, b){
@@ -88,6 +110,37 @@ function divide(a, b){
 }
 
 function operate(a, b, operator){
-    return operator(a, b);
+    a = Number(a);
+    b = Number(b);
+    if(operator === '+'){
+        return add(a, b);
+    }
+    else if(operator === '-'){
+        return subtract(a, b);
+    }
+    else if(operator === '*'){
+        return multiply(a, b);
+    }
+    else if(operator === '/'){
+        return divide(a, b); //zero case
+    }
+    else{
+        return null; // null case
+    }
+}
+
+function clear(){
+    num1 = '';
+    num2 = '';
+    operator = '';
+    displayBox = '';
+    document.getElementById('display').textContent = displayBox;
+}
+
+function del(){
+    if(displayBox.textContent != ''){
+        displayBox = displayBox.slice(0, -1);
+        document.getElementById('display').textContent = displayBox;
+    }
 }
 

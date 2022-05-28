@@ -24,9 +24,14 @@
 // const pctBtn = document.getElementById('percentage');
 
 let displayBox = "";
+let count = 0;
+let num1 = "";
+let num2 = "";
+let operator;
 
 for(let i = 0; i < 10; i++){
     document.getElementById('btn'+i).addEventListener('click', display);
+    document.getElementById('btn'+i).addEventListener('click', op);
 }
 
 document.getElementById('add').addEventListener('click', display);
@@ -34,12 +39,24 @@ document.getElementById('subtract').addEventListener('click', display);
 document.getElementById('multiply').addEventListener('click', display);
 document.getElementById('divide').addEventListener('click', display);
 
+document.getElementById('equals').addEventListener('click', eqls);
+
 document.getElementById('clear').addEventListener('click', clear);
 document.getElementById('delete').addEventListener('click', del);
 
 function display(e){
     displayBox += e.target.textContent;
     document.getElementById('display').textContent = displayBox;
+}
+
+function op(e){
+    if(count === 0){
+        num1 += e.target.textContent;
+    }
+}
+
+function eqls(){
+    document.getElementById('display').textContent = operate(num1, num2, operator);
 }
 
 function clear(){

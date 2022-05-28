@@ -42,15 +42,12 @@
 //     document.getElementById('display').textContent = operate(num1, num2, operator);
 // }
 
-
-
-
 let num1 = '';
 let num2 = '';
 let operator = '';
-let displayBox = '';
+//let displayBox = '';
 
-//const displayBox = document.getElementById('display');
+const displayBox = document.getElementById('display');
 
 // Number buttons
 const numButtons = document.querySelectorAll('.num');
@@ -68,13 +65,13 @@ document.getElementById('clear').addEventListener('click', clear);
 document.getElementById('delete').addEventListener('click', del);
 
 function displayNumber(e){
-    displayBox += e.target.textContent;
-    document.getElementById('display').textContent = displayBox;
+    displayBox.textContent += e.target.textContent;
+    //document.getElementById('display').textContent = displayBox;
 }
 
 function setOperator(e){
     if(operator === ''){
-        num1 = displayBox;
+        num1 = displayBox.textContent;
         operator = e.target.textContent;
         resetDisplay(); //last operation screen
     }
@@ -84,13 +81,13 @@ function setOperator(e){
 }
 
 function resetDisplay(){
-    displayBox = '';
-    document.getElementById('display').textContent = displayBox;
+    displayBox.textContent = '';
+    //document.getElementById('display').textContent = displayBox;
 }
 
 function eqls(e){
-    num2 = displayBox;
-    document.getElementById('display').textContent = operate(num1, num2, operator);
+    num2 = displayBox.textContent;
+    displayBox.textContent = operate(num1, num2, operator);
 }
 
 function add(a, b){
@@ -133,14 +130,14 @@ function clear(){
     num1 = '';
     num2 = '';
     operator = '';
-    displayBox = '';
-    document.getElementById('display').textContent = displayBox;
+    displayBox.textContent = '';
+    //document.getElementById('display').textContent = displayBox;
 }
 
 function del(){
     if(displayBox.textContent != ''){
-        displayBox = displayBox.slice(0, -1);
-        document.getElementById('display').textContent = displayBox;
+        displayBox.textContent = displayBox.textContent.slice(0, -1);
+        //document.getElementById('display').textContent = displayBox;
     }
 }
 

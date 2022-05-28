@@ -1,11 +1,8 @@
-// const decBtn = document.getElementById('decimal');
-// const negBtn = document.getElementById('negative');
-// const pctBtn = document.getElementById('percentage');
-
 let num1 = '';
 let num2 = '';
 let operator = '';
-const displayBox = document.getElementById('display');
+let needReset = false;
+const currentDisplay = document.getElementById('display');
 
 // Number buttons
 const numButtons = document.querySelectorAll('.num');
@@ -15,37 +12,55 @@ numButtons.forEach((button) => button.addEventListener('click', displayNumber));
 const opButtons = document.querySelectorAll('.op');
 opButtons.forEach((button) => button.addEventListener('click', setOperator));
 
-// Equals button
+// Buttons
 document.getElementById('equals').addEventListener('click', calculate);
-
-// Clear buttons
 document.getElementById('clear').addEventListener('click', clear);
 document.getElementById('delete').addEventListener('click', del);
+document.getElementById('decimal').addEventListener('click', addDecimal);
 
+// Display
 function displayNumber(e){
-    displayBox.textContent += e.target.textContent;
+    if(needReset){
+        currentDisplay.textContent = '';
+        needReset = false;
+    }
+    currentDisplay.textContent += e.target.textContent;
 }
 
 function setOperator(e){
-    if(operator === ''){
-        num1 = displayBox.textContent;
-        operator = e.target.textContent;
-        displayBox.textContent = '';
-    }
-    else{
+    if(operator != ''){
         calculate(e);
     }
+    num1 = currentDisplay.textContent;
+    operator = e.target.textContent;
+    needReset = true;
 }
 
 function calculate(e){
-    if(operator != ''){ 
-        num2 = displayBox.textContent;
-        displayBox.textContent = operate(num1, num2, operator);
-        operator = '';
+    if(operator == '' || needReset){
+        return;
     }
-    else return;
+    num2 = currentDisplay.textContent;
+    let result = operate(num1, num2, operator)
+    currentDisplay.textContent = Math.round(result * 10000) / 10000;;
+    operator = '';
 }
 
+function addDecimal(){
+    if(needReset){
+        currentDisplay.textContent = '';
+        needReset = false;
+    }
+    if(currentDisplay.textContent === ''){
+        currentDisplay.textContent = '0';
+    }
+    if(currentDisplay.textContent.includes('.')){
+        return;
+    }
+    currentDisplay.textContent += '.';
+}
+
+// Operations
 function add(a, b){
     return a + b;
 }
@@ -78,20 +93,20 @@ function operate(a, b, operator){
         return divide(a, b);
     }
     else{
-        return 'ERROR';
+        return '';
     }
 }
 
+// Clearing
 function clear(){
     num1 = '';
     num2 = '';
     operator = '';
-    displayBox.textContent = '';
+    currentDisplay.textContent = '';
 }
 
 function del(){
-    if(displayBox.textContent != ''){
-        displayBox.textContent = displayBox.textContent.slice(0, -1);
+    if(currentDisplay.textContent != ''){
+        currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
     }
 }
-
